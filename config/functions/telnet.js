@@ -1,7 +1,24 @@
 const telnetlib = require("telnetlib");
 const io = require("socket.io-client");
+const { readfileSync } = require("fs");
 
 module.exports = () => {
+  const connect = `
+
+  ...    ::::::::::..   .::::::.   :::.     .        :    ...    :::
+  ;;     ;;;;;;;'';;;; ;;;'    '   ;;';;    ;;,.    ;;;   ;;     ;;;
+ [['     [[[ [[[,/[[[' '[==/[[[[, ,[[ '[[,  [[[[, ,[[[[, [['     [[[
+ $$      $$$ $$$$$$c     '''    $c$$$cc$$$c $$$$$$$$"$$$ $$      $$$
+ 88    .d888 888b "88bo,88b    dP 888   888,888 Y88" 888o88    .d888
+  "YmmMMMM"" MMMM   "W"  "YMmMY"  YMM   ""' MMM  M'  "MMM "YmmMMMM""
+
+Type 'register <email> <password>' to register a new account.
+Type 'connect <name> <password>' to connect.
+
+Type 'QUIT' to disconnect.
+
+`;
+
   const { NAWS } = telnetlib.options;
   const server = telnetlib.createServer(
     {
@@ -11,6 +28,7 @@ module.exports = () => {
     async (c) => {
       let token;
       const s = io("http://localhost:1337");
+      c.write(connect + "\r\n");
 
       const naws = c.getOption(NAWS);
 

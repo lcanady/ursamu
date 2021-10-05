@@ -11,6 +11,11 @@ module.exports = () => {
     disconnect: pipeline(),
   };
 
+  hooks.connect.use((ctx, next) => {
+    ctx.strapi.send(ctx.id, "Connected: ", Date.toString());
+    next();
+  });
+
   hooks.input.use(cmdHook, defaultHook);
 
   return hooks;

@@ -1,4 +1,5 @@
 const { existsSync, readdirSync } = require("fs");
+const bcrypt = require("bcrypt");
 
 /**
  * Load all js files from a directory.
@@ -23,3 +24,30 @@ module.exports.loaddir = async (path, cb) => {
     }
   }
 };
+
+/**
+ * Hash a string.
+ * @param pass The password to hash
+ * @returns
+ */
+module.exports.hash = (pass) =>
+  new Promise((resolve, reject) =>
+    bcrypt.hash(pass, 10, (err, encr) => {
+      if (err) reject(err);
+      resolve(encr);
+    })
+  );
+
+/**
+ * Compare a hashed string to it's plantext counterpart.
+ * @param data The plan text representation of the hashed string
+ * @param pass Hashed string
+ * @returns
+ */
+module.exports.compare = (data, pass) =>
+  new Promise((resolve, reject) =>
+    bcrypt.compare(data, pass, (err, comp) => {
+      if (err) reject(err);
+      resolve(comp);
+    })
+  );

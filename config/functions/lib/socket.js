@@ -7,6 +7,7 @@ module.exports = ({ server, hooks }) => {
       ctx = JSON.parse(ctx);
       ctx.strapi = strapi;
       ctx.id = socket.id;
+      ctx.socket = socket;
       hooks.input.execute(ctx);
     });
   });

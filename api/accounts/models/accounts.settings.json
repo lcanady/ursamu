@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "accounts",
+  "info": {
+    "name": "Accounts",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "handle": {
+      "type": "string"
+    },
+    "password": {
+      "type": "password",
+      "required": true,
+      "private": true
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "objects": {
+      "collection": "objects"
+    },
+    "admin": {
+      "type": "boolean",
+      "default": false
+    },
+    "superuser": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
