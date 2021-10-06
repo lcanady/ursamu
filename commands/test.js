@@ -1,9 +1,8 @@
 module.exports = () => {
-  strapi.addCmd({
+  const { addCmd, send } = strapi;
+  addCmd({
     name: "test",
     pattern: ".test",
-    render: (args, ctx) => {
-      send(ctx.id, "This is s test!!");
-    },
+    render: async (args, ctx) => await send(ctx.id, "This is s test!!"),
   });
 };

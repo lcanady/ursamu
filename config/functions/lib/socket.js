@@ -1,4 +1,5 @@
-module.exports = ({ server, hooks }) => {
+module.exports = () => {
+  const { server, hooks } = strapi;
   const io = require("socket.io")(server);
   io.on("connection", (socket) => {
     socket.join(socket.id);

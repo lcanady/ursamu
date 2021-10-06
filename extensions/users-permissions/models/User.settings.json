@@ -59,8 +59,9 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "objects": {
-      "collection": "objects"
+    "flags": {
+      "type": "string",
+      "default": "account"
     }
   }
 }

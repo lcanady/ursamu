@@ -20,8 +20,8 @@ module.exports = () => {
   strapi.addCmd = cmds.addCmd;
   strapi.matchCmd = cmds.matchCmd;
   strapi.hooks = require("./lib/hooks")();
-  strapi.io = require("./lib/socket")(strapi);
-  const comms = require("./lib/broadcast")(strapi.io);
+  strapi.io = require("./lib/socket")();
+  const comms = require("./lib/broadcast")();
   strapi.send = comms.send;
   loaddir(join(__dirname, "../../commands/"));
 
