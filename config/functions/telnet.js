@@ -5,18 +5,17 @@ const { readfileSync } = require("fs");
 module.exports = () => {
   const connect = `
 
-  ...    ::::::::::..   .::::::.   :::.     .        :    ...    :::
-  ;;     ;;;;;;;'';;;; ;;;'    '   ;;';;    ;;,.    ;;;   ;;     ;;;
- [['     [[[ [[[,/[[[' '[==/[[[[, ,[[ '[[,  [[[[, ,[[[[, [['     [[[
- $$      $$$ $$$$$$c     '''    $c$$$cc$$$c $$$$$$$$"$$$ $$      $$$
- 88    .d888 888b "88bo,88b    dP 888   888,888 Y88" 888o88    .d888
-  "YmmMMMM"" MMMM   "W"  "YMmMY"  YMM   ""' MMM  M'  "MMM "YmmMMMM""
+ ...    ::::::::::..   .::::::.   :::.     .        :    ...    :::
+ ;;     ;;;;;;;'';;;; ;;;'    '   ;;';;    ;;,.    ;;;   ;;     ;;;
+[['     [[[ [[[,/[[[' '[==/[[[[, ,[[ '[[,  [[[[, ,[[[[, [['     [[[
+$$      $$$ $$$$$$c     '''    $c$$$cc$$$c $$$$$$$$"$$$ $$      $$$
+88    .d888 888b "88bo,88b    dP 888   888,888 Y88" 888o88    .d888
+ "YmmMMMM"" MMMM   "W"  "YMmMY"  YMM   ""' MMM  M'  "MMM "YmmMMMM""
 
 Type 'register <email> <password>' to register a new account.
 Type 'connect <name> <password>' to connect.
 
 Type 'QUIT' to disconnect.
-
 `;
 
   const { NAWS } = telnetlib.options;

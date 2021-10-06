@@ -1,6 +1,6 @@
 "use strict";
 const { Tags } = require("@digibear/tags");
-const { loaddir } = require("./utils/utils");
+const { loaddir } = require("../../utils/utils");
 const { join } = require("path");
 
 /**

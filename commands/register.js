@@ -1,27 +1,27 @@
-const { hash } = require("../config/functions/utils/utils");
+const { hash } = require("../utils/utils");
+const axios = require("axios");
+module.exports = () => {
+  const { addCmd, hooks, send } = strapi;
 
-module.exports = ({ services, addCmd, send, hooks }) => {
   addCmd({
     name: "register",
-    pattern: "register * *",
+    pattern: "register * * *",
     render: async (args, ctx) => {
-      const taken = await services.accounts.findOne({ email: args[1] });
-      if (taken) return send(ctx.id, "That email is already registered.");
-
       try {
-        const acct = await services.accounts.create({
-          email: args[1],
-          password: await hash(args[2]),
-          admin: false,
-          superuser: false,
-        });
-
-        ctx.socket.uid = acct.id;
+        const res = await axios.post(
+          "http://localhost:1337/auth/local/register",
+          {
+            username: args[1],
+            email: args[2],
+            password: args[3],
+          }
+        );
+        ctx.cid = res.data.id;
+        ctx.socket.cid = res.data.id;
+        ctx.data.token = res.data.jwt;
         await hooks.connect.execute(ctx);
       } catch (error) {
-        for (const err of error.data.errors) {
-          await send(ctx.id, err.key().toString());
-        }
+        await send(ctx.id, "Unable to process your account.");
       }
     },
   });

@@ -35,6 +35,9 @@
     "superuser": {
       "type": "boolean",
       "default": false
+    },
+    "flags": {
+      "type": "string"
     }
   }
 }

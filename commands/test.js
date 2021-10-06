@@ -1,5 +1,5 @@
-module.exports = ({ send, addCmd }) => {
-  addCmd({
+module.exports = () => {
+  strapi.addCmd({
     name: "test",
     pattern: ".test",
     render: (args, ctx) => {
