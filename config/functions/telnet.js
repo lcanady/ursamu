@@ -37,8 +37,7 @@ Type 'QUIT' to disconnect.
         c.height = data.height;
       });
 
-      s.on("message", (data) => {
-        const ctx = JSON.parse(data);
+      s.on("message", (ctx) => {
         const { token: tkn, command } = ctx.data;
         if (tkn) token = tkn;
         if (ctx.msg) c.write(ctx.msg + "\r\n");

@@ -1,12 +1,12 @@
 const { hash } = require("../utils/utils");
 const axios = require("axios");
-module.exports = () => {
-  const { addCmd, hooks, send } = strapi;
+const { addCmd, hooks, send } = require("@ursamu/core");
 
+module.exports = () => {
   addCmd({
     name: "register",
     pattern: "register * * *",
-    render: async (args, ctx) => {
+    render: async (ctx, args) => {
       try {
         const res = await axios.post(
           "http://localhost:1337/auth/local/register",

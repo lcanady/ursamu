@@ -1,9 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "objects",
+  "collectionName": "rooms",
   "info": {
-    "name": "Objects",
-    "description": ""
+    "name": "rooms"
   },
   "options": {
     "increments": true,
@@ -16,14 +15,12 @@
       "type": "string",
       "required": true
     },
-    "data": {
-      "type": "json"
+    "description": {
+      "type": "richtext",
+      "default": "You see nothing special"
     },
     "flags": {
       "type": "string"
-    },
-    "owner": {
-      "model": "characters"
     }
   }
 }

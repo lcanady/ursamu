@@ -1,12 +1,11 @@
 const axios = require("axios");
+const { hooks, addCmd, send } = require("@ursamu/core");
 
 module.exports = () => {
-  const { hooks, addCmd, send } = strapi;
-
   addCmd({
     name: "connect",
     pattern: "connect * *",
-    render: async (args, ctx) => {
+    render: async (ctx, args) => {
       try {
         const res = await axios.post("http://localhost:1337/auth/local", {
           identifier: args[1],

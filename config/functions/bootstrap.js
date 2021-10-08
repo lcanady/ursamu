@@ -1,8 +1,8 @@
 "use strict";
-const { Tags } = require("@digibear/tags");
-const { loaddir } = require("../../utils/utils");
+const { io, hooks, plugins } = require("@ursamu/core");
+const defaultHook = require("./hooks/defaultHook");
+const cmdHook = require("./hooks/cmdHook");
 const { join } = require("path");
-
 /**
  * An asynchronous bootstrap function that runs before
  * your application gets started.
@@ -14,16 +14,12 @@ const { join } = require("path");
  */
 
 module.exports = () => {
-  // modify the global strapi object.
-  strapi.flags = new Tags();
-  const cmds = require("./lib/commands")();
-  strapi.addCmd = cmds.addCmd;
-  strapi.matchCmd = cmds.matchCmd;
-  strapi.hooks = require("./lib/hooks")();
-  strapi.io = require("./lib/socket")();
-  const comms = require("./lib/broadcast")();
-  strapi.send = comms.send;
-  loaddir(join(__dirname, "../../commands/"));
+  io.attach(strapi.server);
 
+  require("./lib/subs")();
   require("./telnet")();
+  plugins(join(__dirname, "../../commands/"));
+  plugins(join(__dirname, "../../hooks/"));
+
+  hooks.input.use(cmdHook, defaultHook);
 };
