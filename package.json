@@ -17,19 +17,18 @@
     "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
     "fetch": "^1.1.0",
-    "knex": "0.21.18",
+    "nanoid": "^3.1.29",
     "pm2": "^5.1.2",
-    "sharp": "^0.29.1",
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0",
-    "sqlite3": "5.0.0",
     "strapi": "3.6.8",
     "strapi-admin": "3.6.8",
-    "strapi-connector-bookshelf": "3.6.8",
+    "strapi-connector-mongoose": "^3.6.8",
     "strapi-plugin-content-manager": "3.6.8",
     "strapi-plugin-content-type-builder": "3.6.8",
     "strapi-plugin-email": "3.6.8",
     "strapi-plugin-i18n": "3.6.8",
+    "strapi-plugin-react-editorjs": "^1.5.0",
     "strapi-plugin-upload": "3.6.8",
     "strapi-plugin-users-permissions": "3.6.8",
     "strapi-utils": "3.6.8",
@@ -45,5 +44,8 @@
     "node": ">=10.16.0 <=14.x.x",
     "npm": "^6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }

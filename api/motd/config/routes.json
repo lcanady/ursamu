@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/motd",
+      "handler": "motd.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/motd",
+      "handler": "motd.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/motd",
+      "handler": "motd.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

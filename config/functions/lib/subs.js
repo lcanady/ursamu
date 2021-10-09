@@ -11,12 +11,17 @@ module.exports = () => {
     },
     {
       before: /[#]+\s+(.*)/g,
-      after: "%u$1%cn",
+      after: "%ch%u$1%cn",
       strip: "$1",
     },
     {
       before: /^>\s+([\s|\S]+)/g,
       after: "$1",
+      strip: "$1",
+    },
+    {
+      before: /_([^_]+)_/g,
+      after: "%u$1%cn",
       strip: "$1",
     },
     {
@@ -28,6 +33,15 @@ module.exports = () => {
       before: /`{1,3}([^`]+)`{1,3}/g,
       after: "%ch$1%cn",
       strip: "$1",
+    },
+    {
+      before: /\n/g,
+      after: "%r",
+    },
+
+    {
+      before: /\t/g,
+      after: "%t",
     }
   );
 
