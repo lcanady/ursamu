@@ -2,17 +2,26 @@ const { flags } = require("@ursamu/core");
 const pm2 = require("pm2");
 const { promisify } = require("util");
 
-const set = async (player, flgs, data = {}) => {
+const set = async (player, flgs, props = {}) => {
   const { tags, data: flgData } = flags.set(
     player.flags,
     JSON.parse(player.data || "{}"),
     flgs
   );
 
-  player.data = JSON.stringify(flgData);
-  player.flags = tags;
-
-  return await strapi.query("objects").update({ dbref: player.dbref }, player);
+  return await strapi.query("objects").model.updateOne(
+    { dbref: player.dbref },
+    {
+      ...props,
+      ...{ flags: tags },
+      ...{
+        data: JSON.stringify({
+          ...(props.data || {}),
+          ...flgData,
+        }),
+      },
+    }
+  );
 };
 
 const target = async (en, tar = "") => {
@@ -61,6 +70,34 @@ const canSee = (en, tar) => {
   );
 };
 
+const idle = (secs) => {
+  const curr = Date.now();
+  const past = secs;
+  secs = Math.floor((curr - secs) / 1000);
+  const mins = Math.floor((curr - past) / (1000 * 60));
+  const hrs = Math.floor((curr - past) / (1000 * 60 * 60));
+
+  if (hrs) return hrs + "h";
+  if (mins) return mins + "m";
+  return secs + "s";
+};
+
+const idleColor = (idleTime) => {
+  const str = idle(idleTime);
+  const match = str.match(/(\d{1,3})(\w)/);
+  if (match) {
+    let [_, time, mark] = match;
+    let currTime = parseInt(time, 10);
+    if (mark === "s") return `%ch%cg${str}%cn`;
+    if (mark === "m" && currTime < 15) return `%cg${str}%cn`;
+    if (mark === "m" && currTime > 14 && currTime < 30)
+      return `%ch%cy${str}%cn`;
+    if (mark === "m" && currTime > 30) return `%ch%cr${str}%cn`;
+    if (mark === "h") return `%ch%cx${str}%cn`;
+  }
+  return str;
+};
+
 class ProcessManager {
   constructor() {}
 
@@ -101,4 +138,6 @@ module.exports = {
   target,
   canEdit,
   canSee,
+  idle,
+  idleColor,
 };

@@ -24,8 +24,11 @@ module.exports = async () => {
   plugins(join(__dirname, "../../commands/"));
   plugins(join(__dirname, "../../hooks/"));
 
-  require("./lib/pmanage")();
   hooks.startup.use(startupHook);
   hooks.input.use(authHook, cmdHook, defaultHook);
   await hooks.startup.execute({});
+
+  io.on("connect", (socket) => {
+    socket.on("disconnect", () => hooks.disconnect.execute(socket.cid || ""));
+  });
 };

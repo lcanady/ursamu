@@ -48,6 +48,9 @@
     "description": {
       "type": "text",
       "default": "You See Nothing Special"
+    },
+    "lastcommand": {
+      "type": "integer"
     }
   }
 }

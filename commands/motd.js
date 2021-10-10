@@ -5,6 +5,7 @@ module.exports = () => {
   addCmd({
     name: "motd",
     pattern: "motd",
+    flags: "connected",
     render: async (ctx, args) => {
       const motd = await strapi.query("motd").find({});
 

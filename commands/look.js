@@ -1,6 +1,6 @@
 const { send, parser, addCmd, flags } = require("@ursamu/core");
-const { target, canEdit, canSee } = require("../utils/utils");
-const { center, header, headerNarrow } = require("../utils/format");
+const { target, canEdit, canSee, idleColor } = require("../utils/utils");
+const { repeat, header, headerNarrow } = require("../utils/format");
 
 module.exports = () => {
   const charStatus = (char, width) => {
@@ -11,9 +11,13 @@ module.exports = () => {
     return `${tag}${
       char.name + " ".repeat(25 - parser.stripSubs("telnet", char.name).length)
     } ${
+      " ".repeat(
+        5 - parser.stripSubs("telnet", idleColor(char.lastcommand)).length
+      ) + idleColor(char.lastcommand)
+    }   ${
       char.shortdesc
-        ? char.shortdesc
-        : "%ch%cxUse '+shortdesc me=<desc>' to set.%cn"
+        ? char.shortdesc.substring(0, width - 35)
+        : "%ch%cxUse '+shortdesc me=<desc>' to set.%cn".substring(0, width - 30)
     }`;
   };
 
@@ -42,8 +46,10 @@ module.exports = () => {
 
       if (chars.length > 0) {
         desc += headerNarrow("Characters", ctx.data.width);
-        desc += chars.map((char) => charStatus(char, ctx.data.width)).join("");
+        desc +=
+          chars.map((char) => charStatus(char, ctx.data.width)).join("") + "%r";
       }
+      desc += repeat("%cb=%ch-%cn", ctx.data.width);
       await send(ctx.id, desc);
     },
   });

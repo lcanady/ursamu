@@ -36,18 +36,18 @@ const server = telnetlib.createServer(
     });
 
     s.on("message", (ctx) => {
-      const { token: tkn, command } = ctx.data;
-      if (tkn) token = tkn;
+      if (ctx?.data?.token) token = ctx?.data?.token;
       if (ctx.msg) c.write(ctx.msg + "\r\n");
-      if (command === "quit") c.end();
     });
 
     s.io.on("reconnect", () => {
       s.send({
         data: { token, height: c.height, width: c.width },
-        msg: "",
+        msg: "think ...Reconnected...",
       });
     });
+
+    s.on("quit", () => c.end());
 
     s.on("error", (err) => {
       console.error(err);
