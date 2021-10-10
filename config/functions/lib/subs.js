@@ -159,18 +159,36 @@ module.exports = () => {
       before: /%\)/g,
       after: "&rpar",
       strip: " ",
+    },
+    {
+      before: /%\[/g,
+      after: "&lbrac",
+      strip: " ",
+    },
+    {
+      before: /%\]/g,
+      after: "&rbrac",
+      strip: " ",
     }
   );
 
   parser.addSubs(
     "post",
     {
-      before: "&lpar",
+      before: /&lpar/g,
       after: "(",
     },
     {
-      before: "&rpar",
+      before: /&rpar/g,
       after: ")",
+    },
+    {
+      before: /&lbrac/g,
+      after: "[",
+    },
+    {
+      before: /&rbrac/g,
+      after: "]",
     }
   );
 };

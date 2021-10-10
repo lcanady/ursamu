@@ -8,7 +8,7 @@ module.exports = async (ctx, next) => {
         return await cmd.render(ctx, args);
       } catch (error) {
         console.log(error);
-        send(ctx.id, "%crD'oh! Error found:%cn  " + error.message);
+        return send(ctx.id, "%crD'oh! Error found:%cn  " + error.message);
       }
     }
   }

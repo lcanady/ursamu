@@ -127,12 +127,8 @@ const header = (str, width, color = "%cb") =>
  * @param color
  * @returns
  */
-const headerNarrow = (str, width, color) =>
-  center(
-    `%cy<%ch<%cn%ch ${str} %cy>%cn%cy>%cn`,
-    width,
-    `%${color}-%${color}-%cn`
-  );
+const headerNarrow = (str, width, color = "%cb") =>
+  center(`%cy<%ch<%cn%ch ${str} %cy>%cn%cy>%cn`, width, `${color}-%cn`);
 
 module.exports = {
   header,

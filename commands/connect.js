@@ -1,5 +1,5 @@
-const { send, hooks, addCmd, compare } = require("@ursamu/core");
-const { set } = require("../utils/utils");
+const { send, hooks, addCmd, compare, flags, sign } = require("@ursamu/core");
+
 module.exports = () => {
   addCmd({
     name: "connect",
@@ -8,13 +8,16 @@ module.exports = () => {
       const player = await strapi.query("objects").model.findOne({
         name: new RegExp(args[1], "i"),
       });
-      const { password } = JSON.parse(player?.data);
-
-      if (player && (await compare(args[2], password))) {
+      if (player && (await compare(args[2], player.password))) {
         ctx.socket.cid = player.dbref;
 
-        await set(player, "connected");
-        hooks.connect.execute(ctx);
+        const { tags } = flags.set(player.flags, {}, "connected");
+        await strapi
+          .query("objects")
+          .update({ dbref: player.dbref }, { flags: tags });
+        const token = await sign(player.dbref, process.env.SECRET);
+        await send(ctx.id, "", { token });
+        await hooks.connect.execute(ctx);
       } else {
         await send(ctx.id, "Permission denied.");
       }

@@ -22,6 +22,32 @@
     "dbref": {
       "type": "uid",
       "targetField": "name"
+    },
+    "alias": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "flags": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "password": {
+      "type": "password",
+      "private": true
+    },
+    "superuser": {
+      "type": "boolean",
+      "default": false,
+      "required": false,
+      "private": true
+    },
+    "description": {
+      "type": "text",
+      "default": "You See Nothing Special"
     }
   }
 }

@@ -4,7 +4,7 @@ const { nanoid } = require("nanoid");
 
 module.exports = () => {
   addCmd({
-    name: "register",
+    name: "create",
     pattern: "create * *",
     render: async (ctx, args) => {
       const taken = await strapi.query("objects").model.findOne({
@@ -16,15 +16,12 @@ module.exports = () => {
 
       if (taken) return send(ctx.id, "That name isn't available.");
 
-      const data = JSON.stringify({
-        password: await hash(args[2]),
-        flags: "player connected",
-      });
-
       const player = await strapi.query("objects").model.create({
+        flags: "player connected",
+        password: await hash(args[2]),
         name: args[1],
         dbref: nanoid(),
-        data,
+        location: strapi.config.get("ursamu.startingRoom", "start-0000"),
       });
 
       ctx.socket.cid = player.dbref;
