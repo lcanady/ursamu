@@ -5,7 +5,6 @@ const cmdHook = require("./hooks/cmdHook");
 const { join } = require("path");
 const startupHook = require("./hooks/startupHook");
 const authHook = require("./hooks/authHook");
-const { pm } = require("../../utils/utils");
 /**
  * An asynchronous bootstrap function that runs before
  * your application gets started.
@@ -21,6 +20,7 @@ module.exports = async () => {
 
   require("./lib/subs")();
   require("./lib/flags")();
+
   plugins(join(__dirname, "../../commands/"));
   plugins(join(__dirname, "../../hooks/"));
 

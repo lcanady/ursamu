@@ -8,6 +8,7 @@ module.exports = async (ctx, next) => {
     ctx.socket.cid = dbref;
     ctx.socket.join(ctx.socket.cid);
     ctx.socket.join(en.location);
+    ctx.socket.join(en.dbref);
   }
   next();
 };
