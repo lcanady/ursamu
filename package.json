@@ -12,7 +12,7 @@
   "dependencies": {
     "@digibear/middleware": "^0.2.3",
     "@digibear/tags": "^0.2.15",
-    "@ursamu/core": "../core",
+    "@ursamu/core": "^0.2.0",
     "@ursamu/parser": "^1.2.4",
     "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
@@ -20,6 +20,7 @@
     "fetch": "^1.1.0",
     "nanoid": "^3.1.29",
     "pm2": "^5.1.2",
+    "sharp": "^0.29.1",
     "socket.io": "^4.2.0",
     "socket.io-client": "^4.2.0",
     "strapi": "3.6.8",
