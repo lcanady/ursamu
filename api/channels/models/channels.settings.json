@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "channels",
+  "info": {
+    "name": "channels",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dbref": {
+      "type": "uid"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "create": {
+      "type": "string"
+    },
+    "read": {
+      "type": "string"
+    },
+    "update": {
+      "type": "string",
+      "default": "staff+"
+    },
+    "delete": {
+      "type": "string",
+      "default": "staff+"
+    },
+    "header": {
+      "type": "string"
+    },
+    "public": {
+      "type": "boolean",
+      "default": true
+    },
+    "join": {
+      "type": "string"
+    },
+    "alias": {
+      "type": "string"
+    }
+  }
+}
