@@ -23,7 +23,7 @@ module.exports = () => {
 
   addCmd({
     name: "look",
-    pattern: /(?:^l|lo|loo|look)(?:\s+?(.*))?/i,
+    pattern: /^l[ook]*\r\n$|^l[ook]*\s+(.*)\r\n$/i,
     flags: "connected",
     render: async (ctx, args) => {
       let desc = "";

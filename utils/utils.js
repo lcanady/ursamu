@@ -132,6 +132,8 @@ class ProcessManager {
 
 const pm = new ProcessManager();
 
+const query = (col) => strapi.query(col).model;
+
 module.exports = {
   pm,
   set,
@@ -140,4 +142,5 @@ module.exports = {
   canSee,
   idle,
   idleColor,
+  query,
 };

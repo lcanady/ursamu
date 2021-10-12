@@ -51,6 +51,9 @@
     },
     "lastcommand": {
       "type": "integer"
+    },
+    "shortdesc": {
+      "type": "string"
     }
   }
 }

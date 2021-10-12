@@ -12,7 +12,7 @@
   "dependencies": {
     "@digibear/middleware": "^0.2.3",
     "@digibear/tags": "^0.2.15",
-    "@ursamu/core": "^0.2.0",
+    "@ursamu/core": "^0.2.1",
     "@ursamu/parser": "^1.2.4",
     "axios": "^0.22.0",
     "bcrypt": "^5.0.1",
