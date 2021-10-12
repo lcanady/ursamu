@@ -18,7 +18,7 @@ module.exports = () => {
       next();
     },
     async (ctx, next) => {
-      await force(ctx, "look");
+      await force(ctx, "look\r\n");
       next();
     }
   );
