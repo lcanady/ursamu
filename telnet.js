@@ -50,6 +50,16 @@ const server = telnetlib.createServer(
 
     s.on("quit", (reboot) => {
       if (!reboot) {
+        reboot = false;
+        s.disconnect();
+        c.end();
+      } else {
+        reboot = true;
+      }
+    });
+
+    s.on("disconnect", () => {
+      if (!reboot) {
         s.disconnect();
         c.end();
       }
