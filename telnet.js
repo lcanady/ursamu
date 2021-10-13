@@ -43,18 +43,23 @@ const server = telnetlib.createServer(
 
     s.io.on("reconnect", () => {
       s.send({
-        data: { token, height: c.height, width: c.width },
+        data: { token, height: c.height, width: c.width, reboot: true },
         msg: "think ...Reconnected...",
       });
     });
 
-    s.on("quit", () => c.end());
+    s.on("quit", (reboot) => {
+      if (!reboot) {
+        s.disconnect();
+        c.end();
+      }
+    });
 
     s.on("error", (err) => {
       console.error(err);
     });
 
-    c.on("end", () => s.close());
+    c.on("end", () => s.disconnect());
 
     c.on("error", (err) => console.log(err));
 

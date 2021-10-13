@@ -10,6 +10,7 @@ module.exports = () => {
         msg: "Game @reboot initiated, please wait!",
         data: {},
       });
+      hooks.shutdown.execute({ reboot: true });
       process.exit(0);
     },
   });

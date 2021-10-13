@@ -12,7 +12,8 @@ module.exports = () => {
       ctx.socket.join(player.location);
       ctx.socket.join(player.dbref);
       ctx.socket.token = ctx.data.token;
-      await set(player, "connected", { lastcommand: Date.now() });
+      if (!ctx.data.reboot)
+        await set(player, "connected", { lastcommand: Date.now() });
       await force(ctx, "motd");
 
       next();
