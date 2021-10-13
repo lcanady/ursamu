@@ -1,15 +1,12 @@
 const { hooks, send, io } = require("@ursamu/core");
-const { set } = require("../utils/utils");
+const { set, query } = require("../utils/utils");
 module.exports = () => {
-  hooks.disconnect.use(async (dbref, next) => {
-    const player = await strapi.query("objects").model.findOne({ dbref });
+  hooks.disconnect.use(async (socket, next) => {
+    const player = await query("objects").findOne({ dbref: socket.cid });
     await set(player, "!connected");
 
+    socket.disconnect();
     await send(player.location, `${player.name} has disconnected.`);
-    const socks = await io.in(dbref).fetchSockets();
-    for (const sock of socks) {
-      sock.disconnect(true);
-    }
     next();
   });
 };

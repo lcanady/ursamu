@@ -29,6 +29,6 @@ module.exports = async () => {
   await hooks.startup.execute({});
 
   io.on("connect", (socket) => {
-    socket.on("disconnect", () => hooks.disconnect.execute(socket.cid || ""));
+    socket.on("disconnect", () => hooks.disconnect.execute(socket));
   });
 };
