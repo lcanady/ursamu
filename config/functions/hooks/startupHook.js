@@ -1,5 +1,4 @@
 const { hooks } = require("@ursamu/core");
-const { nanoid } = require("nanoid");
 
 module.exports = async (ctx, next) => {
   const rooms = await strapi.query("objects").find({
