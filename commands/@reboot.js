@@ -1,4 +1,4 @@
-const { addCmd, io, send } = require("@ursamu/core");
+const { addCmd, io, send, hooks } = require("@ursamu/core");
 
 module.exports = () => {
   addCmd({
@@ -10,7 +10,7 @@ module.exports = () => {
         msg: "Game @reboot initiated, please wait!",
         data: {},
       });
-      strapi.reload();
+      process.exit(0);
     },
   });
 };

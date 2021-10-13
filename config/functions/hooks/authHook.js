@@ -1,4 +1,5 @@
 const { verify } = require("@ursamu/core");
+const { set } = require("../../../utils/utils");
 
 module.exports = async (ctx, next) => {
   if (ctx.data.token) {
@@ -6,7 +7,8 @@ module.exports = async (ctx, next) => {
 
     const en = await strapi.query("objects").findOne({ dbref });
     ctx.socket.cid = dbref;
-    ctx.socket.join(ctx.socket.cid);
+    await set(en, "connected");
+
     ctx.socket.join(en.location);
     ctx.socket.join(en.dbref);
   }

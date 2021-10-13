@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
-    "develop": "concurrently \"strapi develop\" \" node telnet.js \"",
+    "develop": "concurrently \"pm2 start server.js --name server --watch\" \" pm2 start telnet.js \"",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"

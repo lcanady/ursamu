@@ -1,20 +1,17 @@
-const { hooks, io } = require("@ursamu/core");
+const { hooks, io, broadcast } = require("@ursamu/core");
 const { set } = require("../utils/utils");
 
 module.exports = () => {
-  hooks.shutdown.use(
-    async (_, next) => {
-      const chars = await strapi
-        .query("objects")
-        .model.find({ flags: /connected/i });
-      for (const char of chars) {
-        await set(char, "!connected");
-      }
+  hooks.shutdown.use(async (_, next) => {
+    const chars = await strapi
+      .query("objects")
+      .model.find({ flags: /connected/i });
+    for (const char of chars) {
+      await set(char, "!connected");
+    }
 
-      (await io.fetchSockets()).forEach((socket) => socket.disconnect(true));
-
-      next();
-    },
-    () => process.kill(process.pid)
-  );
+    await broadcast(
+      "%ch%cyNOTICE!!%cn Game is shutting down. %rSee You Space Cowboy..."
+    );
+  });
 };

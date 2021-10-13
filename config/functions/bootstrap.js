@@ -27,8 +27,4 @@ module.exports = async () => {
   hooks.startup.use(startupHook);
   hooks.input.use(authHook, cmdHook, defaultHook);
   await hooks.startup.execute({});
-
-  io.on("connect", (socket) => {
-    socket.on("disconnect", () => hooks.disconnect.execute(socket));
-  });
 };
