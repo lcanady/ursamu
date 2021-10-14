@@ -15,6 +15,6 @@ module.exports = () => {
         "%ch%cyNOTICE!!%cn Game is shutting down. %rSee You Space Cowboy..."
       );
     io.emit("quit", ctx?.data?.reboot);
-    (await io.fetchSockets()).forEach((sock) => sock.disconnect());
+    (await io.fetchSockets()).forEach((sock) => sock.disconnect(true));
   });
 };

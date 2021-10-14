@@ -1,4 +1,5 @@
 const { addCmd, io, send, hooks } = require("@ursamu/core");
+const { query } = require("../utils/utils");
 
 module.exports = () => {
   addCmd({
@@ -10,7 +11,7 @@ module.exports = () => {
         msg: "Game @reboot initiated, please wait!",
         data: {},
       });
-      hooks.shutdown.execute({ reboot: true });
+
       process.exit(0);
     },
   });

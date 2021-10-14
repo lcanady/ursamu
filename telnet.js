@@ -42,27 +42,27 @@ const server = telnetlib.createServer(
     });
 
     s.io.on("reconnect", () => {
-      s.send({
-        data: { token, height: c.height, width: c.width, reboot: true },
-        msg: "think ...Reconnected...",
-      });
-    });
-
-    s.on("quit", (reboot) => {
-      if (!reboot) {
-        reboot = false;
-        s.disconnect();
-        c.end();
+      if (token) {
+        s.send({
+          data: { token, height: c.height, width: c.width, reboot: true },
+          msg: "think ...Reconnected...",
+        });
       } else {
-        reboot = true;
+        c.end();
       }
     });
 
-    s.on("disconnect", () => {
-      if (!reboot) {
+    s.on("disconnect", (reason) => {
+      if (!reason || reason.includes("server")) {
+        console.log("CYA");
         s.disconnect();
         c.end();
       }
+    });
+
+    s.on("quit", () => {
+      s.disconnect();
+      c.end();
     });
 
     s.on("error", (err) => {

@@ -6,7 +6,9 @@ module.exports = () => {
     pattern: "quit",
     render: async (ctx) => {
       await send(ctx.id, "...See You Space Cowboy...");
-      io.to(ctx.socket.id).emit("quit");
+      (await io.in(ctx.socket.cid).fetchSockets()).forEach((sock) =>
+        sock.disconnect(true)
+      );
     },
   });
 };
