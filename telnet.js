@@ -24,6 +24,7 @@ const server = telnetlib.createServer(
   },
   async (c) => {
     let token;
+    let reboot;
     c.write(connect + "\r\n");
 
     const naws = c.getOption(NAWS);
@@ -34,7 +35,8 @@ const server = telnetlib.createServer(
       c.height = data.height;
     });
 
-    const s = io("http://localhost:1337");
+    const s = io("http://localhost:1337", { autoConnect: false });
+    s.connect();
 
     s.on("message", (ctx) => {
       if (ctx?.data?.token) token = ctx?.data?.token;
@@ -42,27 +44,24 @@ const server = telnetlib.createServer(
     });
 
     s.io.on("reconnect", () => {
-      if (token) {
+      {
         s.send({
           data: { token, height: c.height, width: c.width, reboot: true },
           msg: "think ...Reconnected...",
         });
-      } else {
-        c.end();
       }
     });
 
-    s.on("disconnect", (reason) => {
-      if (!reason || reason.includes("server")) {
-        console.log("CYA");
+    s.on("disconnect", () => {
+      if (reboot) s.connect();
+      c.end();
+    });
+
+    s.on("quit", (r) => {
+      if (!r) {
         s.disconnect();
         c.end();
       }
-    });
-
-    s.on("quit", () => {
-      s.disconnect();
-      c.end();
     });
 
     s.on("error", (err) => {

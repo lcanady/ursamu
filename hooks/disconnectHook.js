@@ -5,7 +5,7 @@ module.exports = () => {
     const player = await query("objects").findOne({ dbref: socket.cid });
     await set(player, "!connected");
 
-    socket.disconnect();
+    io.to(socket.cid).emit("quit", false);
     await send(player.location, `${player.name} has disconnected.`);
     next();
   });
