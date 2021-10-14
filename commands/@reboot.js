@@ -11,7 +11,7 @@ module.exports = () => {
         msg: "Game @reboot initiated, please wait!",
         data: {},
       });
-
+      io.emit("quit", true);
       process.exit(0);
     },
   });
