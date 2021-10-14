@@ -1,5 +1,4 @@
-const { addCmd, io, send, hooks } = require("@ursamu/core");
-const { query } = require("../utils/utils");
+const { addCmd, io } = require("@ursamu/core");
 
 module.exports = () => {
   addCmd({

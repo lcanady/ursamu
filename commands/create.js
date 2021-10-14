@@ -27,6 +27,7 @@ module.exports = () => {
         name: args[1],
         dbref: nanoid(),
         location: strapi.config.get("ursamu.startingRoom", "start-0000"),
+        lastcommand: Date.now(),
       });
 
       ctx.socket.cid = player.dbref;
